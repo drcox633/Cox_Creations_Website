@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cox Creations | Gallery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f4ef;
+      --charcoal: #121212;
+      --muted: #3a3a3a;
+      --wood: #c28a52;
+      --linen: #efe7dc;
+      --card: rgba(255, 255, 255, 0.7);
+      --shadow: 0 12px 45px rgba(0, 0, 0, 0.08);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+      color: var(--charcoal);
+      background: radial-gradient(1100px at 15% 20%, rgba(194, 138, 82, 0.12), transparent 50%),
+                  radial-gradient(1300px at 85% 0%, rgba(18, 18, 18, 0.06), transparent 40%),
+                  var(--bg);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding: 32px;
+    }
+    .page {
+      max-width: 1100px;
+      margin: 0 auto 72px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+    .logo {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      font-size: 24px;
+      letter-spacing: 0.6px;
+    }
+    nav a {
+      margin-left: 16px;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 15px;
+    }
+    nav a:hover { color: var(--charcoal); }
+    .hero {
+      background: var(--card);
+      border: 1px solid rgba(0,0,0,0.05);
+      box-shadow: var(--shadow);
+      border-radius: 24px;
+      padding: 36px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(0,0,0,0.04);
+      border-radius: 20px;
+      pointer-events: none;
+    }
+    .hero-copy h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(34px, 5vw, 46px);
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    .hero-copy p {
+      color: var(--muted);
+      margin-bottom: 22px;
+      font-size: 16px;
+      max-width: 520px;
+    }
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      background: var(--charcoal);
+      color: var(--bg);
+      padding: 13px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.15);
+    }
+    .btn:hover { transform: translateY(-2px); background: #1f1f1f; }
+    .btn.secondary {
+      background: transparent;
+      color: var(--charcoal);
+      border: 1px solid rgba(0,0,0,0.12);
+      box-shadow: none;
+      padding: 12px 16px;
+    }
+    section {
+      margin-top: 64px;
+    }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .section-head h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 26px;
+    }
+    .section-head p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .gallery {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    .gallery img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,0.04);
+      background: var(--linen);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    footer {
+      margin-top: 36px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      body { padding: 20px; }
+      header { flex-direction: column; align-items: flex-start; gap: 10px; }
+      nav a { margin-left: 0; margin-right: 12px; }
+      .hero { padding: 26px; }
+      .gallery img { height: 200px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logo">Cox Creations</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>Work in progress, finished with pride.</h1>
+        <p>A closer look at the craft: grains, joinery, and the quiet details that make each piece feel personal.</p>
+        <div class="cta-row">
+          <a class="btn" href="index.html#collection">Shop the Collection</a>
+          <a class="btn secondary" href="index.html#contact">Start a custom piece</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Gallery</h2>
+        <p>Every angle tells the story.</p>
+      </div>
+      <div class="gallery">
+        <img src="gallery/IMG_3090%203.jpeg" alt="Woodwork gallery detail 1">
+        <img src="gallery/IMG_3091%203.jpeg" alt="Woodwork gallery detail 2">
+        <img src="gallery/IMG_3092%203.jpeg" alt="Woodwork gallery detail 3">
+        <img src="gallery/IMG_3093%204.jpeg" alt="Woodwork gallery detail 4">
+        <img src="gallery/IMG_3094%203.jpeg" alt="Woodwork gallery detail 5">
+        <img src="gallery/IMG_3095%203.jpeg" alt="Woodwork gallery detail 6">
+        <img src="gallery/IMG_3096%203.jpeg" alt="Woodwork gallery detail 7">
+        <img src="gallery/IMG_3097%203.jpeg" alt="Woodwork gallery detail 8">
+        <img src="gallery/IMG_3098%203.jpeg" alt="Woodwork gallery detail 9">
+        <img src="gallery/IMG_3099%203.jpeg" alt="Woodwork gallery detail 10">
+        <img src="gallery/IMG_3100%203.jpeg" alt="Woodwork gallery detail 11">
+        <img src="gallery/IMG_3101%204.jpeg" alt="Woodwork gallery detail 12">
+        <img src="gallery/IMG_3102%203.jpeg" alt="Woodwork gallery detail 13">
+        <img src="gallery/IMG_3103%203.jpeg" alt="Woodwork gallery detail 14">
+        <img src="gallery/IMG_3104%203.jpeg" alt="Woodwork gallery detail 15">
+        <img src="gallery/IMG_3105%203.jpeg" alt="Woodwork gallery detail 16">
+        <img src="gallery/IMG_3106%203.jpeg" alt="Woodwork gallery detail 17">
+        <img src="gallery/IMG_3107%203.jpeg" alt="Woodwork gallery detail 18">
+        <img src="gallery/IMG_3108%203.jpeg" alt="Woodwork gallery detail 19">
+        <img src="gallery/IMG_3109%203.jpeg" alt="Woodwork gallery detail 20">
+        <img src="gallery/IMG_3110%203.jpeg" alt="Woodwork gallery detail 21">
+        <img src="gallery/IMG_3111%203.jpeg" alt="Woodwork gallery detail 22">
+        <img src="gallery/IMG_3112%203.jpeg" alt="Woodwork gallery detail 23">
+        <img src="gallery/IMG_3113%203.jpeg" alt="Woodwork gallery detail 24">
+        <img src="gallery/IMG_3114%203.jpeg" alt="Woodwork gallery detail 25">
+        <img src="gallery/IMG_3115%203.jpeg" alt="Woodwork gallery detail 26">
+        <img src="gallery/IMG_3116%203.jpeg" alt="Woodwork gallery detail 27">
+        <img src="gallery/IMG_3117%203.jpeg" alt="Woodwork gallery detail 28">
+      </div>
+    </section>
+
+    <footer>
+      Cox Creations — handmade locally with care.
+    </footer>
+  </div>
+</body>
+</html>

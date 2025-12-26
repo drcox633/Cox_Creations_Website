@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cox Creations | Handcrafted Woodwork</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f4ef;
+      --charcoal: #121212;
+      --muted: #3a3a3a;
+      --wood: #c28a52;
+      --linen: #efe7dc;
+      --card: rgba(255, 255, 255, 0.7);
+      --shadow: 0 12px 45px rgba(0, 0, 0, 0.08);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+      color: var(--charcoal);
+      background: radial-gradient(1100px at 15% 20%, rgba(194, 138, 82, 0.12), transparent 50%),
+                  radial-gradient(1300px at 85% 0%, rgba(18, 18, 18, 0.06), transparent 40%),
+                  var(--bg);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding: 32px;
+    }
+    .page {
+      max-width: 1100px;
+      margin: 0 auto 72px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+    .logo {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      font-size: 24px;
+      letter-spacing: 0.6px;
+    }
+    nav a {
+      margin-left: 16px;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 15px;
+    }
+    nav a:hover { color: var(--charcoal); }
+    .hero {
+      background: var(--card);
+      border: 1px solid rgba(0,0,0,0.05);
+      box-shadow: var(--shadow);
+      border-radius: 24px;
+      padding: 36px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(0,0,0,0.04);
+      border-radius: 20px;
+      pointer-events: none;
+    }
+    .hero-copy h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(34px, 5vw, 46px);
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    .hero-copy p {
+      color: var(--muted);
+      margin-bottom: 22px;
+      font-size: 16px;
+      max-width: 520px;
+    }
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      background: var(--charcoal);
+      color: var(--bg);
+      padding: 13px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.15);
+    }
+    .btn:hover { transform: translateY(-2px); background: #1f1f1f; }
+    .btn.secondary {
+      background: transparent;
+      color: var(--charcoal);
+      border: 1px solid rgba(0,0,0,0.12);
+      box-shadow: none;
+      padding: 12px 16px;
+    }
+    .hero-media {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      align-items: center;
+    }
+    .frame {
+      background: var(--linen);
+      border-radius: var(--radius);
+      padding: 10px;
+      border: 1px solid rgba(0,0,0,0.05);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+    }
+    section {
+      margin-top: 64px;
+    }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .section-head h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 26px;
+    }
+    .section-head p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid rgba(0,0,0,0.05);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .card img { width: 100%; height: 220px; object-fit: cover; }
+    .card-content { padding: 18px; display: grid; gap: 8px; }
+    .card h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 19px;
+    }
+    .pill {
+      display: inline-block;
+      padding: 6px 10px;
+      background: rgba(194,138,82,0.12);
+      color: var(--charcoal);
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.3px;
+    }
+    .card p { color: var(--muted); font-size: 14px; }
+    .gallery {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    .gallery img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,0.04);
+      background: var(--linen);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    .process {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+    }
+    .step {
+      background: var(--card);
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+    .step strong {
+      display: block;
+      font-family: 'Playfair Display', Georgia, serif;
+      margin-bottom: 6px;
+      font-size: 17px;
+    }
+    .cta {
+      margin-top: 72px;
+      text-align: center;
+      background: linear-gradient(130deg, rgba(18,18,18,0.9), rgba(18,18,18,0.84));
+      color: var(--bg);
+      padding: 38px 26px;
+      border-radius: 22px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.18);
+    }
+    .cta h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .cta p { color: rgba(247,244,239,0.9); margin-bottom: 18px; }
+    .cta .contact-note { color: rgba(247,244,239,0.75); font-size: 13px; margin-top: 6px; }
+    footer {
+      margin-top: 36px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      body { padding: 20px; }
+      header { flex-direction: column; align-items: flex-start; gap: 10px; }
+      nav a { margin-left: 0; margin-right: 12px; }
+      .hero { padding: 26px; }
+      .card img, .gallery img { height: 200px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logo">Cox Creations</div>
+      <nav>
+        <a href="#collection">Collection</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="#process">Process</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>Handcrafted woodwork, made to be treasured.</h1>
+        <p>Local, one-of-a-kind pieces shaped with care. Cox Creations brings warmth, character, and that special something to the people you love.</p>
+        <div class="cta-row">
+          <a class="btn" href="#collection">Shop the Collection</a>
+          <a class="btn secondary" href="#process">How it's made</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="frame">
+          <img src="hero%20photos/IMG_3028.jpeg" alt="Handmade wooden music box with intricate joinery">
+        </div>
+        <div class="frame">
+          <img src="hero%20photos/IMG_0431%202.jpeg" alt="Set of handmade wooden coasters with smooth finish">
+        </div>
+      </div>
+    </section>
+
+    <section id="collection">
+      <div class="section-head">
+        <h2>Featured pieces</h2>
+        <p>Small batches, distinctive grains, crafted to last.</p>
+      </div>
+      <div class="features">
+        <article class="card">
+          <img src="hero%20photos/IMG_3028.jpeg" alt="Handmade wooden music box with felt-lined interior">
+          <div class="card-content">
+            <div class="pill">Music Box</div>
+            <h3>Harmony Keepsake</h3>
+            <p>Precision joinery, a warm hand-rubbed finish, and a felt-lined interior ready to hold meaningful moments.</p>
+            <a class="btn secondary" href="#contact">Inquire</a>
+          </div>
+        </article>
+        <article class="card">
+          <img src="hero%20photos/IMG_0431%202.jpeg" alt="Handmade wooden coaster set on a light background">
+          <div class="card-content">
+            <div class="pill">Coasters</div>
+            <h3>Gather Round Set</h3>
+            <p>Stackable coasters with a soft satin sheen—perfect for everyday tables and celebratory nights alike.</p>
+            <a class="btn secondary" href="#contact">Inquire</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="section-head">
+        <h2>Process</h2>
+        <p>Intentional craft, start to finish.</p>
+      </div>
+      <div class="process">
+        <div class="step">
+          <strong>Purposeful design</strong>
+          <p>Each piece begins with a story and a use case, pairing the right species with the feel you want in hand.</p>
+        </div>
+        <div class="step">
+          <strong>Patient shaping</strong>
+          <p>Joinery, fit, and balance are refined by hand—no shortcuts—so the piece lives beautifully in your space.</p>
+        </div>
+        <div class="step">
+          <strong>Finishing warmth</strong>
+          <p>Hand-rubbed finishes and careful buffing let the grain glow while protecting daily use.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="contact">
+      <h3>Ready to bring a piece home?</h3>
+      <p>Tell me what you're looking for, and I'll craft something memorable.</p>
+      <a class="btn" href="#collection">Shop the Collection</a>
+      <p class="contact-note">Prefer to chat? Add your preferred contact email or number here.</p>
+    </section>
+
+    <footer>
+      Cox Creations — handmade locally with care.
+    </footer>
+  </div>
+</body>
+</html>
