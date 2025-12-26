@@ -136,9 +136,9 @@
     }
     .section-head {
       display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 16px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
       margin-bottom: 18px;
     }
     .section-head h2 {
@@ -164,6 +164,10 @@
       flex-direction: column;
     }
     .card img { width: 100%; height: 220px; object-fit: cover; }
+    .card img.contain {
+      object-fit: contain;
+      background: var(--linen);
+    }
     .card-content { padding: 18px; display: grid; gap: 8px; }
     .card h3 {
       font-family: 'Playfair Display', Georgia, serif;
@@ -269,7 +273,7 @@
           <img src="hero%20photos/Music%20Box%201.jpeg" alt="Handcrafted wooden music box with warm grain">
         </div>
         <div class="frame">
-          <img src="hero%20photos/Cutting%20Board%201.jpeg" alt="Handmade cutting board with rich end grain">
+          <img src="hero%20photos/Coasters%201.jpeg" alt="Handmade wooden coasters with smooth finish">
         </div>
       </div>
     </section>
@@ -290,7 +294,7 @@
           </div>
         </article>
         <article class="card">
-          <img src="hero%20photos/Jewlery%20Box%201.jpeg" alt="Handcrafted jewelry box with smooth lid and clean lines">
+          <img class="contain" src="hero%20photos/Jewlery%20Box%201.jpeg" alt="Handcrafted jewelry box with smooth lid and clean lines">
           <div class="card-content">
             <div class="pill">Jewelry Box</div>
             <h3>Everlight Box</h3>
