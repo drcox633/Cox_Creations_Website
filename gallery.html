@@ -141,7 +141,74 @@
       border: 1px solid rgba(0,0,0,0.04);
       background: var(--linen);
       box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      cursor: zoom-in;
     }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.52);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      z-index: 20;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .lightbox.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .lightbox-inner {
+      position: relative;
+      max-width: min(1000px, 90vw);
+      max-height: 90vh;
+      background: var(--card);
+      border-radius: 18px;
+      box-shadow: 0 22px 80px rgba(0, 0, 0, 0.35);
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.18);
+      overflow: auto;
+      display: block;
+    }
+    .lightbox img {
+      max-width: 100%;
+      max-height: 80vh;
+      border-radius: 14px;
+      transition: transform 0.2s ease, transform-origin 0.2s ease, box-shadow 0.2s ease;
+      cursor: zoom-in;
+      box-shadow: 0 10px 50px rgba(0,0,0,0.2);
+      background: var(--linen);
+      display: block;
+      margin: 0 auto;
+    }
+    .lightbox img.zoomed {
+      transform: none;
+      width: 190%;
+      max-width: none;
+      max-height: none;
+      cursor: zoom-out;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.65);
+      color: #fff;
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.15s ease;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+    }
+    .lightbox-close:hover { background: rgba(0,0,0,0.78); transform: translateY(-1px); }
     footer {
       margin-top: 36px;
       color: var(--muted);
@@ -216,9 +283,109 @@
       </div>
     </section>
 
+    <div class="lightbox" aria-hidden="true" role="dialog" aria-label="Gallery image preview">
+      <div class="lightbox-inner">
+        <button class="lightbox-close" type="button" aria-label="Close preview">&times;</button>
+        <img src="" alt="Expanded gallery item">
+      </div>
+    </div>
+
     <footer>
       Cox Creations — handmade locally with care.
     </footer>
   </div>
+  <script>
+    const galleryImages = document.querySelectorAll('.gallery img');
+    const lightbox = document.querySelector('.lightbox');
+    const lightboxImage = lightbox.querySelector('img');
+    const closeBtn = lightbox.querySelector('.lightbox-close');
+    const lightboxInner = lightbox.querySelector('.lightbox-inner');
+    let isZoomed = false;
+    const zoomFactor = 1.9;
+
+    function resetZoomStyles() {
+      lightboxImage.style.width = '';
+      lightboxImage.style.maxWidth = '';
+      lightboxImage.style.maxHeight = '';
+      lightboxInner.scrollTop = 0;
+      lightboxInner.scrollLeft = 0;
+    }
+
+    function setZoom(state, focusPoint) {
+      isZoomed = state;
+      lightboxImage.classList.toggle('zoomed', state);
+      if (state) {
+        lightboxImage.style.width = `${zoomFactor * 100}%`;
+        lightboxImage.style.maxWidth = `${zoomFactor * 100}%`;
+        lightboxImage.style.maxHeight = 'none';
+
+        requestAnimationFrame(() => {
+          const scrollX = lightboxInner.scrollWidth - lightboxInner.clientWidth;
+          const scrollY = lightboxInner.scrollHeight - lightboxInner.clientHeight;
+          const xRatio = focusPoint ? focusPoint.x : 0.5;
+          const yRatio = focusPoint ? focusPoint.y : 0.5;
+          lightboxInner.scrollLeft = scrollX * xRatio;
+          lightboxInner.scrollTop = scrollY * yRatio;
+        });
+      } else {
+        resetZoomStyles();
+      }
+    }
+
+    function openLightbox(src, alt) {
+      lightboxImage.src = src;
+      lightboxImage.alt = alt || 'Expanded gallery item';
+      lightbox.classList.add('visible');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      setZoom(false);
+      lightboxImage.focus?.();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('visible');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      setZoom(false);
+    }
+
+    galleryImages.forEach(img => {
+      img.addEventListener('click', () => openLightbox(img.src, img.alt));
+      img.setAttribute('tabindex', '0');
+      img.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openLightbox(img.src, img.alt);
+        }
+      });
+    });
+
+    closeBtn.addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('visible')) {
+        closeLightbox();
+      }
+    });
+
+    lightboxImage.addEventListener('click', (e) => {
+      if (isZoomed) {
+        setZoom(false);
+      } else {
+        const rect = lightboxImage.getBoundingClientRect();
+        const focusPoint = {
+          x: (e.clientX - rect.left) / rect.width,
+          y: (e.clientY - rect.top) / rect.height
+        };
+        setZoom(true, focusPoint);
+      }
+    });
+  </script>
 </body>
 </html>
