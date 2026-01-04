@@ -302,9 +302,6 @@
     const lightboxInner = lightbox.querySelector('.lightbox-inner');
     let isZoomed = false;
     const zoomFactor = 1.9;
-    let currentIndex = 0;
-    let isDragging = false;
-    let dragStart = { x: 0, y: 0, scrollLeft: 0, scrollTop: 0 };
 
     function resetZoomStyles() {
       lightboxImage.style.width = '';
@@ -353,15 +350,11 @@
     }
 
     galleryImages.forEach(img => {
-      img.addEventListener('click', () => {
-        currentIndex = Array.from(galleryImages).indexOf(img);
-        openLightbox(img.src, img.alt);
-      });
+      img.addEventListener('click', () => openLightbox(img.src, img.alt));
       img.setAttribute('tabindex', '0');
       img.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          currentIndex = Array.from(galleryImages).indexOf(img);
           openLightbox(img.src, img.alt);
         }
       });
@@ -378,19 +371,6 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && lightbox.classList.contains('visible')) {
         closeLightbox();
-        return;
-      }
-
-      if (!lightbox.classList.contains('visible')) return;
-
-      if (e.key === 'ArrowRight') {
-        currentIndex = (currentIndex + 1) % galleryImages.length;
-        openLightbox(galleryImages[currentIndex].src, galleryImages[currentIndex].alt);
-      }
-
-      if (e.key === 'ArrowLeft') {
-        currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
-        openLightbox(galleryImages[currentIndex].src, galleryImages[currentIndex].alt);
       }
     });
 
@@ -405,33 +385,6 @@
         };
         setZoom(true, focusPoint);
       }
-    });
-
-    lightboxImage.addEventListener('mousedown', (e) => {
-      if (!isZoomed) return;
-      isDragging = true;
-      lightboxImage.style.cursor = 'grabbing';
-      dragStart = {
-        x: e.clientX,
-        y: e.clientY,
-        scrollLeft: lightboxInner.scrollLeft,
-        scrollTop: lightboxInner.scrollTop
-      };
-      e.preventDefault();
-    });
-
-    document.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      const dx = e.clientX - dragStart.x;
-      const dy = e.clientY - dragStart.y;
-      lightboxInner.scrollLeft = dragStart.scrollLeft - dx;
-      lightboxInner.scrollTop = dragStart.scrollTop - dy;
-    });
-
-    document.addEventListener('mouseup', () => {
-      if (!isDragging) return;
-      isDragging = false;
-      lightboxImage.style.cursor = isZoomed ? 'zoom-out' : 'zoom-in';
     });
   </script>
 </body>
